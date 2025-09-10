@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Sentiment Analyzer</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Optional: Custom scrollbar for a nicer touch */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        body::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        body::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-blue-400 to-purple-600 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full bg-white rounded-xl shadow-2xl p-8 space-y-8 transform hover:scale-105 transition duration-300 ease-in-out">
+        <div>
+            <h1 class="mt-6 text-center text-4xl font-extrabold text-gray-900">
+                ✨ Awesome Sentiment Analyzer ✨
+            </h1>
+            <p class="mt-2 text-center text-lg text-gray-600">
+                Uncover the feelings hidden in your text!
+            </p>
+        </div>
+        <form action="/" method="post" class="mt-8 space-y-6">
+            <div class="rounded-md shadow-sm -space-y-px">
+                <div>
+                    <label for="user_text" class="sr-only">Enter your text</label>
+                    <textarea
+                        name="user_text"
+                        id="user_text"
+                        rows="6"
+                        class="appearance-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-lg resize-none"
+                        placeholder="Type or paste your text here to get started..."
+                    ></textarea>
+                </div>
+            </div>
+            <div>
+                <button
+                    type="submit"
+                    class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out transform hover:scale-105"
+                >
+                    🚀 Analyze Sentiment
+                </button>
+            </div>
+        </form>
+
+        {% if sentiment_result %}
+        <div class="mt-8 p-6 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg shadow-inner border border-purple-200 animate-fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Analysis Result</h2>
+            <div class="space-y-3">
+                <p class="text-lg text-gray-700">
+                    <strong class="font-semibold text-purple-700">Text Analyzed:</strong> <span class="block mt-1 p-3 bg-white rounded-md border border-gray-200 shadow-sm italic">{{ sentiment_result.text }}</span>
+                </p>
+                <p class="text-lg text-gray-700 flex items-center">
+                    <strong class="font-semibold text-purple-700 mr-2">Sentiment:</strong>
+                    <span class="px-4 py-1 rounded-full text-white font-bold
+                        {% if 'Positive' in sentiment_result.sentiment %} bg-green-500
+                        {% elif 'Negative' in sentiment_result.sentiment %} bg-red-500
+                        {% else %} bg-gray-500
+                        {% endif %}
+                    ">
+                        {{ sentiment_result.sentiment }}
+                    </span>
+                </p>
+                <p class="text-lg text-gray-700">
+                    <strong class="font-semibold text-purple-700">Polarity Score:</strong> <span class="text-blue-600 font-mono text-xl">{{ "%.2f"|format(sentiment_result.polarity) }}</span>
+                </p>
+                <p class="text-lg text-gray-700">
+                    <strong class="font-semibold text-purple-700">Subjectivity Score:</strong> <span class="text-blue-600 font-mono text-xl">{{ "%.2f"|format(sentiment_result.subjectivity) }}</span>
+                </p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
