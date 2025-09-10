@@ -22,11 +22,12 @@ Follow these steps to set up the project locally.
 
 
 ### 📂 Project Structure
+```
 sentiment-analyzer/
 ├── app.py
 └── templates/
 └── index.html
-
+```
 
 ### 📥 Step-by-Step Guide
 1. **Clone the Repository (if applicable)** or set up the files as shown above.  
