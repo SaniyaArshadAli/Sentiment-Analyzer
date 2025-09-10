@@ -19,7 +19,7 @@ Follow these steps to set up the project locally.
 
 ### ✅ Prerequisites
 - Python 3.6+  
-- `pip` (Python package installer)  
+
 
 ### 📂 Project Structure
 sentiment-analyzer/
